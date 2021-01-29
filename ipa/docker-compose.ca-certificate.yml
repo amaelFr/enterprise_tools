@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  ipa:
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ${IPA_ROOT_CA:-./cert/root-ca.pem}:/cert/root-ca.pem:ro
+      - ipa_data:/data
+    command: >
+      --domain=${IPA_DOMAIN:-domain.local}
+      --realm=${IPA_REALM:-DOMAIN.LOL}
+      --http-pin=${IPA_HTTP_PIN:-V@grant1}
+      --dirsrv-pin=${IPA_DIRSRV_PIN:-V@grant1}
+      --ds-password=${IPA_DS_PASSWORD:-V@grant1}
+      --admin-password=${IPA_ADMIN_PASSWORD:-V@grant1}
+      --unattended
+      --ca-cert-file=/cert/root-ca.pem
+      ${IPA_START_OPTION:---setup-dns}
+
+volumes:
+  ipa_data:

@@ -1,0 +1,20 @@
+#  <-- tasks file can include smaller files if warranted
+---
+# file: roles/common/tasks/main.yml
+
+
+# - name: Default ping windows
+#   when: ansible_facts['os_family'] == 'Windows'
+#   win_ping:
+
+# - name: Default ping linux
+#   # when: ansible_facts['os_family'] != 'Windows'
+#   ping:
+
+- name: docker-over-ssh
+  # become: yes
+  # become_method: sudo
+  docker_container:
+     name: keycloak
+     host: unix:///run/docker.sock
+     state: stopped

@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  keycloak:
+    depends_on:
+      - ipa
+    entrypoint:
+      - bash
+      - -c 
+      - |
+          i=10
+          until (echo > /dev/tcp/ipa/443 && echo > /dev/tcp/ipa/636 && echo > /dev/tcp/ipa/464 && echo > /dev/tcp/ipa/53) >/dev/null 2>&1 ; do
+            echo "IPA is unavailable - sleeping $$i secondes"
+            sleep $$i;
+            #((i++))
+          done
+          /opt/jboss/tools/docker-entrypoint.sh
+  #   links:
+  #     - ipa

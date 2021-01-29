@@ -1,0 +1,8 @@
+all:
+  hosts:
+    localhost:
+    keycloak:
+  children:
+    docker-container:
+      hosts:
+        keycloak:
