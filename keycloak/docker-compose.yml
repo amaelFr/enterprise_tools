@@ -13,11 +13,10 @@ services:
       POSTGRES_USER: ${POSTGRES_KEYCLOAK_DB_USER:-keycloak}
       POSTGRES_PASSWORD: ${POSTGRES_KEYCLOAK_DB_PASSWD:-keycloak}
   keycloak:
-    # image: quay.io/keycloak/keycloak:latest
     image: jboss/keycloak:latest
     container_name: keycloak
     restart: unless-stopped
-    hostname: ${KEYCLOAK_HOSTNAME:-keycloak}.${DOMAIN:-domain}
+    hostname: ${KEYCLOAK_HOSTNAME:-keycloak}.${DOMAIN:-domain.local}
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: keycloak-postgres
@@ -25,11 +24,9 @@ services:
       DB_USER: ${POSTGRES_KEYCLOAK_DB_USER:-keycloak}
       DB_SCHEMA: public
       DB_PASSWORD: ${POSTGRES_KEYCLOAK_DB_PASSWD:-keycloak}
-    command:
-      - -b
-      - ${KEYCLOAK_INTERFACE:-0.0.0.0}
-    ports:
-      - ${KEYCLOAK_INTERFACE:-0.0.0.0:8080}:8080
+    # command:
+    #   - -b
+    #   - ${KEYCLOAK_INTERFACE:-0.0.0.0}
     depends_on:
       - postgres
 

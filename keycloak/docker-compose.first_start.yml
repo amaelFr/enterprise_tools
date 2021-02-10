@@ -1,39 +1,7 @@
 version: '3'
 
 services:
-  postgres:
-    image: postgres
-    container_name: keycloak-postgres
-    restart: unless-stopped
-    hostname: keycloak-postgres
-    volumes:
-      - keycloak-postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: ${POSTGRES_KEYCLOAK_DB:-keycloak}
-      POSTGRES_USER: ${POSTGRES_KEYCLOAK_DB_USER:-keycloak}
-      POSTGRES_PASSWORD: ${POSTGRES_KEYCLOAK_DB_PASSWD:-keycloak}
   keycloak:
-    # image: quay.io/keycloak/keycloak:latest
-    image: jboss/keycloak:latest
-    container_name: keycloak
-    restart: unless-stopped
-    hostname: ${KEYCLOAK_HOSTNAME:-keycloak}.${DOMAIN:-domain}
     environment:
-      DB_VENDOR: POSTGRES
-      DB_ADDR: keycloak-postgres
-      DB_DATABASE: ${POSTGRES_KEYCLOAK_DB:-keycloak}
-      DB_USER: ${POSTGRES_KEYCLOAK_DB_USER:-keycloak}
-      DB_SCHEMA: public
-      DB_PASSWORD: ${POSTGRES_KEYCLOAK_DB_PASSWD:-keycloak}
       KEYCLOAK_USER: ${KEYCLOAK_USER:-keycloak}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWD:-keycloak}
-    command:
-      - -b
-      - ${KEYCLOAK_INTERFACE:-0.0.0.0}
-    ports:
-      - ${KEYCLOAK_INTERFACE:-0.0.0.0:8080}:8080
-    depends_on:
-      - postgres
-
-volumes:
-  keycloak-postgres_data:

@@ -9,7 +9,7 @@ services:
     # domainname: ${IPA_DOMAIN:-domain.local}
     # environment:
     #   IPA_SERVER_HOSTNAME: ${IPA_HOSTNAME:-ipa.domain.local} # Optionnal
-    tty: true
+    # tty: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - ipa_data:/data
