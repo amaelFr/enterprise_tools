@@ -4,4 +4,4 @@ services:
   keycloak:
     environment:
       KEYCLOAK_USER: ${KEYCLOAK_USER:-keycloak}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWD:-keycloak}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD:-keycloak}

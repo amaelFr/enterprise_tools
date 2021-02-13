@@ -1,6 +1,6 @@
-# USE
+# Usage
 
-## Set up your variable
+## Set up your variables
 ```
 cp sample.env .env
 ```
