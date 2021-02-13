@@ -2,11 +2,11 @@ version: '3'
 
 services:
   phpldapadmin:
-    image: osixia/phpldapadmin:0.9.0
+    image: osixia/phpldapadmin
     container_name: phpldapadmin
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: ${IPA_HOSTNAME:-ipa}.${IPA_DOMAIN:-domain.local}
     ports:
-      - 4443:443
+      - ${PHPLDAPADMIN_INTERFACE:-0.0.0.0}:${PHPLDAPADMIN_PORT_HTTPS:-4443}:443
     depends_on:
       - ipa

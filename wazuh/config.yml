@@ -1,0 +1,24 @@
+
+config:
+  dynamic:
+    authc:
+      openid_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: openid
+          challenge: false
+          config:
+            subject_key: preferred_username
+            roles_key: roles
+            openid_connect_url: "https://keycloak.lab.local/auth/realms/it/.well-known/openid-configuration"
+            # jwks_uri: "https://keycloak.lab.local/auth/realms/it/protocol/openid-connect/certs"
+            # enable_ssl_client_auth: true
+            # pemkey_filepath: "/etc/elasticsearch/ssl/my.domain.com.key"
+            # pemcert_filepath: "/etc/elasticsearch/ssl/my.domain.com.crt"
+            # pemtrustedcas_filepath: "/etc/elasticsearch/ssl/my.domain.com.ca.crt"
+            # enable_ssl: true
+            verify_hostnames: false
+        authentication_backend:
+          type: noop

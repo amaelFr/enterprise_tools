@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  ipa:
+    ports:
+      # Other syncro ipa
+      - ${IPA_INTERFACE:-0.0.0.0}:7389:7389
+      - ${IPA_INTERFACE:-0.0.0.0}:9443:9443
+      - ${IPA_INTERFACE:-0.0.0.0}:9444:9444
+      - ${IPA_INTERFACE:-0.0.0.0}:9445:9445

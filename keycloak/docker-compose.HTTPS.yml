@@ -2,10 +2,5 @@ version: '3'
 
 services:
   keycloak:
-    volumes:
-      - keycloak-postgres_data:/var/lib/postgresql/data
-      - ${KEYCLOAK_CERTIFICATE_SOURCE:-./certificate/}:/etc/x509/https/:ro
     ports:
       - ${KEYCLOAK_INTERFACE:-0.0.0.0}:${KEYCLOAK_HTTPS_PORT:-8443}:8443
-    environment:
-      X509_CA_BUNDLE: ${KEYCLOAK_X509_CA_BUNDLE}

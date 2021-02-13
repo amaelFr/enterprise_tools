@@ -16,7 +16,8 @@ services:
     image: jboss/keycloak:latest
     container_name: keycloak
     restart: unless-stopped
-    hostname: ${KEYCLOAK_HOSTNAME:-keycloak}.${DOMAIN:-domain.local}
+    hostname: ${KEYCLOAK_HOSTNAME:-keycloak}
+    domainname: ${DOMAIN:-domain.local}
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: keycloak-postgres

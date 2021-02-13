@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  ipa:
+    ports:
+      # DNS
+      - ${IPA_INTERFACE:-0.0.0.0}:53:53
+      - ${IPA_INTERFACE:-0.0.0.0}:53:53/udp
