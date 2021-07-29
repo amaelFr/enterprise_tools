@@ -11,7 +11,7 @@ version: '3.7'
 #     environment:
 #       POSTGRES_DB: ${POSTGRES_GUACAMOLE_DB:-guacamole}
 #       POSTGRES_USER: ${POSTGRES_GUACAMOLE_DB_USER:-guacamole}
-#       POSTGRES_PASSWORD: ${POSTGRES_GUACAMOLE_DB_PASSWD:-guacamole}
+#       POSTGRES_PASSWORD: ${POSTGRES_GUACAMOLE_DB_PASSWORD:-guacamole}
 
 #   guacd:
 #     image: guacamole/guacd
@@ -30,7 +30,7 @@ version: '3.7'
 #       GUACD_HOSTNAME: guacamole-guacd
 #       POSTGRES_HOSTNAME: guacamole-postgres
 #       POSTGRES_DATABASE: ${POSTGRES_GUACAMOLE_DB:-guacamole}
-#       POSTGRES_PASSWORD: ${POSTGRES_GUACAMOLE_DB_PASSWD:-guacamole}
+#       POSTGRES_PASSWORD: ${POSTGRES_GUACAMOLE_DB_PASSWORD:-guacamole}
 #       POSTGRES_USER: ${POSTGRES_GUACAMOLE_DB_USER:-guacamole}
 #     depends_on:
 #       - guacd

@@ -1,0 +1,5 @@
+version: '3'
+
+services:
+  elastic:
+    image: amazon/opendistro-for-elasticsearch:1.11.0

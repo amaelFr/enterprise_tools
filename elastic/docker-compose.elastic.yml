@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  elastic:
+    image: amazon/opendistro-for-elasticsearch
+    container_name: elastic
+    hostname: ${ELASTIC_HOSTNAME:-elastic}
+    domainname: ${DOMAIN:-domain.local}
+    restart: always
+    ports:
+      - ${ELASTIC_INTERFACE:-0.0.0.0}:${ELASTIC_PORT:-9200}:${ELASTIC_PORT:-9200}
+    environment:
+      - discovery.type=single-node
+      - cluster.name=${ELASTIC_CLUSTER:-elastic-cluster}
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - bootstrap.memory_lock=true
+    volumes:
+      - ./elastic/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      # - ./config.yml:/usr/share/elasticsearch/plugins/opendistro_security/securityconfig/config.yml
+
+      - ${ELASTIC_CERT_SOURCE:-./cert/elastic/}:/usr/share/elasticsearch/config/cert/:ro
+      # - elastic_data:/usr/share/elasticsearch/data
+      # cp -r ~/documents/lab/lab_playbook/inventories/security/tmp/ssl/domain.local/{elastic,kibana,wazuh} ~/documents/enterprise_tools/wazuh/cert/
+      # sed -i "s/nameserver.*$/nameserver 192.168.5.137/g" /etc/resolv.conf
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  # kibana:
+  #   image: wazuh/wazuh-kibana-odfe:4.0.4_1.11.0
+  #   hostname: ${KIBANA_HOSTNAME:-kibana}
+  #   domainname: ${DOMAIN:-domain.local}
+  #   restart: always
+  #   ports:
+  #     - ${KIBANA_INTERFACE:-0.0.0.0}:${KIBANA_PORT:-5601}:5601
+  #   environment:
+  #     - ELASTICSEARCH_URL=https://${ELASTIC_HOSTNAME:-elastic}.${DOMAIN:-domain.local}:9200
+  #     # - ELASTICSEARCH_URL=https://${ELASTIC_HOSTNAME:-elastic}:9200
+  #     - ELASTICSEARCH_USERNAME=admin
+  #     - ELASTICSEARCH_PASSWORD=admin
+  #     - SERVER_SSL_ENABLED=true
+  #     - SERVER_SSL_CERT=/opt/kibana/config/cert/certificate.crt.pem
+  #     - SERVER_SSL_CERTIFICATE
+  #     - SERVER_SSL_KEY=/opt/kibana/config/cert/private.key.pem
+  #   command: ""
+  #   volumes:
+  #     - ./kibana/kibana.yml:/opt/kibana/config/kibana.yml:ro
+
+  #     - ${KIBANA_CERT_SOURCE:-./cert/kibana/}:/opt/kibana/config/cert/:ro
+  #   depends_on:
+  #     - elastic
+  #   links:
+  #     - elastic:elastic
+  #     # - wazuh:wazuh
+
+volumes:
+  elastic_data:

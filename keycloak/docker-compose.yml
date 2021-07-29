@@ -9,9 +9,9 @@ services:
     volumes:
       - keycloak-postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ${POSTGRES_KEYCLOAK_DB:-keycloak}
-      POSTGRES_USER: ${POSTGRES_KEYCLOAK_DB_USER:-keycloak}
-      POSTGRES_PASSWORD: ${POSTGRES_KEYCLOAK_DB_PASSWD:-keycloak}
+      POSTGRES_DB: ${KEYCLOAK_POSTGRES_DB:-keycloak}
+      POSTGRES_USER: ${KEYCLOAK_POSTGRES_DB_USER:-keycloak}
+      POSTGRES_PASSWORD: ${KEYCLOAK_POSTGRES_DB_PASSWORD:-keycloak}
   keycloak:
     image: jboss/keycloak:latest
     container_name: keycloak
@@ -21,10 +21,10 @@ services:
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: keycloak-postgres
-      DB_DATABASE: ${POSTGRES_KEYCLOAK_DB:-keycloak}
-      DB_USER: ${POSTGRES_KEYCLOAK_DB_USER:-keycloak}
+      DB_DATABASE: ${KEYCLOAK_POSTGRES_DB:-keycloak}
+      DB_USER: ${KEYCLOAK_POSTGRES_DB_USER:-keycloak}
       DB_SCHEMA: public
-      DB_PASSWORD: ${POSTGRES_KEYCLOAK_DB_PASSWD:-keycloak}
+      DB_PASSWORD: ${KEYCLOAK_POSTGRES_DB_PASSWORD:-keycloak}
     # command:
     #   - -b
     #   - ${KEYCLOAK_INTERFACE:-0.0.0.0}
