@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  wordpress-db:
+    container_name: wordpress-db
+    hostname: wordpress-db
+    volumes:
+      - wp-db-data:/var/lib/mysql
+    restart: always
+    environment:
+      # MYSQL_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD:-wordpress}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: ${WP_DB_USER:-wordpress}
+      MYSQL_PASSWORD: ${WP_DB_PASSWORD:-wordpress}
+
+  wordpress:
+    container_name: wordpress
+    hostname: wordpress
+    depends_on:
+      - wordpress-db
+    image: wordpress:fpm
+    volumes:
+      - wp-data:/var/www/html
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db:3306
+      WORDPRESS_DB_USER: ${WP_DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: wordpress
+  
+  wordpress-nginx:
+    container_name: wordpress-nginx
+    hostname: wordpress-nginx
+    links:
+      - wordpress
+    image: nginx:alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - wp-data:/var/www/html
+    ports:
+      - "8000:80"
+    restart: always
+
+volumes:
+  wp-data:
+  wp-db-data:

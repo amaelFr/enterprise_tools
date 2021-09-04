@@ -1,0 +1,5 @@
+version: "3"
+
+services:
+  wordpress-db:
+    image: mysql:${WP_DB_MYSQL_VERSION:-latest}
