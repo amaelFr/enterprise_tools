@@ -9,9 +9,9 @@ services:
       POSTGRES_DB: ${WIKI_DB:-wiki}
       POSTGRES_USER: ${WIKI_DB_USER:-wiki}
       POSTGRES_PASSWORD: ${WIKI_DB_PASSWORD:-wiki}
-    logging:
-      driver: "none"
-    restart: unless-stopped
+    # logging:
+    #   driver: "none"
+    # restart: unless-stopped
     # volumes:
     #   - db-data:/var/lib/postgresql/data
 
@@ -28,9 +28,9 @@ services:
       DB_NAME: ${WIKI_DB:-wiki}
       DB_USER: ${WIKI_DB_USER:-wiki}
       DB_PASS: ${WIKI_DB_PASSWORD:-wiki}
-    restart: unless-stopped
+    # restart: unless-stopped
     ports:
-      - "80:3000"
+      - "8080:3000"
 
 # volumes:
 #   db-data:
