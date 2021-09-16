@@ -5,12 +5,11 @@ services:
     container_name: wiki-db
     hostname: wiki-db
     image: postgres:11-alpine
-    # command: -e POSTGRES_HOST_AUTH_METHOD=trust
     environment:
       POSTGRES_DB: ${WIKI_DB:-wiki}
       POSTGRES_USER: ${WIKI_DB_USER:-wiki}
       POSTGRES_PASSWORD: ${WIKI_DB_PASSWORD:-wiki}
-      POSTGRES_HOST_AUTH_METHOD: trust
+      # POSTGRES_HOST_AUTH_METHOD: trust
     # logging:
     #   driver: "none"
     # restart: unless-stopped
