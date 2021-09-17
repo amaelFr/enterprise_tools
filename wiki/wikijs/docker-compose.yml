@@ -4,7 +4,7 @@ services:
   wiki-db:
     container_name: wiki-db
     hostname: wiki-db
-    image: postgres:11-alpine
+    image: docker.io/postgres:11-alpine
     environment:
       POSTGRES_DB: ${WIKI_DB:-wiki}
       POSTGRES_USER: ${WIKI_DB_USER:-wiki}
@@ -12,14 +12,14 @@ services:
       # POSTGRES_HOST_AUTH_METHOD: trust
     # logging:
     #   driver: "none"
-    # restart: unless-stopped
+    restart: always
     # volumes:
     #   - db-data:/var/lib/postgresql/data
 
   wiki:
     container_name: wiki
     hostname: wiki
-    image: requarks/wiki
+    image: docker.io/requarks/wiki
     depends_on:
       - wiki-db
     environment:
@@ -29,7 +29,7 @@ services:
       DB_NAME: ${WIKI_DB:-wiki}
       DB_USER: ${WIKI_DB_USER:-wiki}
       DB_PASS: ${WIKI_DB_PASSWORD:-wiki}
-    # restart: unless-stopped
+    restart: always
     ports:
       - "8080:3000"
 
