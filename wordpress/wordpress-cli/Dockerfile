@@ -1,5 +1,4 @@
-# FROM wordpress:${WP_VERSION:-latest}
-FROM wordpress:fpm
+FROM wordpress:${WP_IMAGE:-fpm}
 
 RUN curl -o /usr/local/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 

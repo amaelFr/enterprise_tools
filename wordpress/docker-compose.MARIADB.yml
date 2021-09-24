@@ -2,4 +2,4 @@ version: "3"
 
 services:
   wordpress-db:
-    image: mariadb:${WP_DB_MARIADB_VERSION:-latest}
+    image: mariadb:${WP_DB_MARIADB_IMAGE:-latest}

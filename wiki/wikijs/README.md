@@ -14,11 +14,11 @@ curl --header "Content-Type: application/json" \
 
 ## Backup
 ```
-(   echo -e "DROP SCHEMA public CASCADE;\nCREATE SCHEMA public;\n" && \
-    docker exec -t wiki-db pg_dumpall -c -U ${WIKI_DB_USER:-wiki} ) \
+( echo -e "DROP SCHEMA public CASCADE;\nCREATE SCHEMA public;\n" && \
+    docker exec -t wiki-db sh -c "pg_dumpall -c -U \${POSTGRES_USER}" ) \
 | bzip2 -c > backup.sql.bz2
 ```
 ## Restore
 ```
-bzip2 -dc backup.sql.bz2 | docker exec -i wiki-db psql -U ${WIKI_DB_USER:-wiki} -d ${WIKI_DB:-wiki}
+bzip2 -dc backup.sql.bz2 | docker exec -i wiki-db sh -c "psql -U \${POSTGRES_USER} -d \${POSTGRES_DB}"
 ```

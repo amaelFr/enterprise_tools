@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  nginx:
+    ports:
+      - ${NGINX_INTERFACE:-0.0.0.0}:${NGINX_HTTP_PORT:-8080}:80
+      - ${NGINX_INTERFACE:-0.0.0.0}:${NGINX_HTTPS_PORT:-8443}:443
+    volumes:
+      - ${NGINX_CONF:-./nginx}:/etc/nginx/conf.d:ro
+      - ${NGINX_CERTIFICATE:-./certificate}:/etc/nginx/certificate:ro

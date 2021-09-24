@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  nginx:
+    image: docker.io/nginx:${NGINX_IMAGE:-alpine}
+    container_name: nginx
+    restart: always
+    # depends_on:
+    #   - certbot
+        # condition: service_healthy
+    ports:
+      - ${NGINX_INTERFACE:-0.0.0.0}:${NGINX_HTTP_PORT:-8080}:80
+    volumes:
+      - ${NGINX_CONF:-./nginx}:/etc/nginx/conf.d:ro
+#       - certbot-etc:/etc/letsencrypt
+#       - certbot-var:/var/lib/letsencrypt
+#   certbot:
+#     # image: certbot/certbot
+#     build:
+#       context: certbot
+#     container_name: certbot
+#     # command: "/bin/sh -c 'echo ok && mkdir -p /etc/letsencrypt/live && touch /etc/letsencrypt/live/test && touch /etc/letsencrypt/live/test2 && sleep 12h'"
+#     # entrypoint: "/bin/sh -c 'while :; do certbot renew; sleep 12s & wait $${!}; done;'"
+#     environment:
+#       CERTBOT_DOMAINS: |
+#         example.org
+#         wwww.exampe.org
+#       CERTBOT_MAIL: amaelcattaneo@gmail.com 
+#     volumes:
+#       - ${NGINX_CONF:-./nginx_default}:/etc/nginx/conf.d
+#       - certbot-etc:/etc/letsencrypt
+#       - certbot-var:/var/lib/letsencrypt
+#     healthcheck:
+#       test: [ "CMD-SHELL", "[[", "$$(", "ls", "/etc/letsencrypt/live", "|", "wc", "-l", ")", "-ge", "2", "]]" ]
+#       interval: 1m30s
+#       timeout: 10s
+#       retries: 3
+#       start_period: 40s
+
+# volumes:
+#   certbot-etc:
+#   certbot-var:
