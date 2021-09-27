@@ -38,7 +38,7 @@ services:
     restart: always
     volumes:
       - ./nginx:/etc/nginx/conf.d:ro
-      - wp-data:/var/www/html
+      - wp-data:/var/www/html/
     ports:
       - ${WP_INTERFACE:-0.0.0.0}:${WP_PORT:-8080}:80
 
